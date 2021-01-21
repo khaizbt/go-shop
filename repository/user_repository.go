@@ -12,6 +12,8 @@ type (
 		FindUserByEmail(email string) (model.User, error)
 		FindByID(ID int) (model.User, error)
 		UpdateProfile(user model.User) (model.User, error)
+		CreateUser(user model.User) (model.User, error)
+		UserFeature(feature model.UserTypeFeature) (model.UserTypeFeature, error)
 	}
 
 	repository struct {
@@ -54,4 +56,24 @@ func (r *repository) UpdateProfile(user model.User) (model.User, error) {
 	}
 
 	return user, nil
+}
+
+func (r *repository) CreateUser(user model.User) (model.User, error) {
+	err := r.db.Create(&user).Error
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (r *repository) UserFeature(feature model.UserTypeFeature) (model.UserTypeFeature, error) {
+	err := r.db.Where("id_user_type = ?", feature.IDUserType).Where("id_feature = ?", feature.IDFeature).Error
+
+	if err != nil{
+		return feature, err
+	}
+
+	return  feature, nil
 }

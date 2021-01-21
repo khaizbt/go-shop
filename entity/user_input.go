@@ -12,5 +12,9 @@ type (
 		Email    string `json:"email"`
 		Username string `json:"username"`
 		Roles    string `json:"roles"`
+		Address  string `json:"address"`
+		Phone    int    `json:"phone"`
+		Password string `json:"password"`
+		Avatar   string `json:"avatar"`
 	}
 )

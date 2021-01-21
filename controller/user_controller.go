@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"goshop/config"
 	"goshop/entity"
 	"goshop/helper"
@@ -41,17 +42,16 @@ func FormatUser(user model.User, token string) UserFormatter { //Token akan dida
 func (h *userController) Login(c *gin.Context) {
 	var input entity.LoginEmailInput
 	err := c.ShouldBindJSON(&input)
-
 	if err != nil {
-		errorMessage := gin.H{"errors": helper.FormatValidationError(err)}
+		//errorMessage := gin.H{"errors": helper.FormatValidationError(err)}
 
-		responsError := helper.APIResponse("Login Failed #LOG001", http.StatusUnprocessableEntity, "fail", errorMessage)
+		responsError := helper.APIResponse("Login Failed #LOG001", http.StatusUnprocessableEntity, "fail", err.Error())
 		c.JSON(http.StatusUnprocessableEntity, responsError)
 		return
 	}
 
 	loggedInUser, err := h.userService.Login(input)
-
+	fmt.Println("Hhhhh1")
 	if err != nil {
 		errorMessage := gin.H{"errors": err.Error()}
 
@@ -59,14 +59,16 @@ func (h *userController) Login(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, responsError)
 		return
 	}
-
-	token, err := h.authService.GenerateTokenUser(loggedInUser.ID)
+	fmt.Println("Hhhhh2")
+	token, err := h.authService.GenerateTokenUser(loggedInUser.ID, loggedInUser.IDUserType)
 	if err != nil {
 		responsError := helper.APIResponse("Login Failed", http.StatusBadGateway, "fail", "Unable to generate token")
 		c.JSON(http.StatusBadGateway, responsError)
 		return
 	}
 
+
+	fmt.Println("Hhhhh3")
 	response := helper.APIResponse("Login Success", http.StatusOK, "success", FormatUser(loggedInUser, token))
 
 	c.JSON(http.StatusOK, response)

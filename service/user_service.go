@@ -14,6 +14,7 @@ type (
 		Login(input entity.LoginEmailInput) (model.User, error)
 		GetUserById(ID int) (model.User, error)
 		UpdateProfile(input entity.DataUserInput) (bool, error)
+		CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error)
 	}
 
 	service struct {
@@ -84,3 +85,34 @@ func (s *service) UpdateProfile(input entity.DataUserInput) (bool, error) {
 
 	return true, nil
 }
+
+func (s *service) CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error){
+	feature := model.UserTypeFeature{
+		IDUserType: idUserType,
+		IDFeature: idFeature,
+	}
+
+	feature, err := s.repository.UserFeature(feature)
+
+	if err != nil {
+		return feature, err
+	}
+
+	return feature, nil
+}
+//TODO create user
+// func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
+// 	cekUser, err := s.repository.FindUserByEmail(input.Email)
+
+// 	if cekUser.ID != 0 {
+// 		return false, errors.New("Email has been registered")
+// 	}
+
+// 	user := model.User{
+// 		Email:    input.Email,
+// 		Username: input.Username,
+// 		Phone:    input.Phone,
+// 	}
+
+// 	return true, nil
+// }

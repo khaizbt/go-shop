@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthMiddlewareUser(authService config.AuthService, userService service.UserService) gin.HandlerFunc {
+func AuthMiddlewareUser(authService config.AuthService, userService service.UserService, feature int) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 
@@ -50,6 +50,16 @@ func AuthMiddlewareUser(authService config.AuthService, userService service.User
 		role := claim["role"]
 
 		user, err := userService.GetUserById(userID)
+
+		if user.IDUserType != 1 {
+			checkFeature, _ := userService.CheckFeature(user.IDUserType, feature)
+
+			if checkFeature.ID == 0 {
+				response := helper.APIResponse("Unauthorized #TKN005", http.StatusUnauthorized, "error", "you don't have access to this feature")
+				c.AbortWithStatusJSON(http.StatusUnauthorized, response) //Agar proses dihentikan/tidak eksekusi program yang dibungkus middleware
+				return
+			}
+		}
 
 		if err != nil {
 			response := helper.APIResponse("Unauthorized #TKN004", http.StatusUnauthorized, "error", nil)
