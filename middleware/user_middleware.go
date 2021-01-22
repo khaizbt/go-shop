@@ -51,7 +51,7 @@ func AuthMiddlewareUser(authService config.AuthService, userService service.User
 
 		user, err := userService.GetUserById(userID)
 
-		if user.IDUserType != 1 {
+		if user.IDUserType != 1 && feature != 0 {
 			checkFeature, _ := userService.CheckFeature(user.IDUserType, feature)
 
 			if checkFeature.ID == 0 {

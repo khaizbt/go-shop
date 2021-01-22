@@ -15,6 +15,7 @@ type (
 		GetUserById(ID int) (model.User, error)
 		UpdateProfile(input entity.DataUserInput) (bool, error)
 		CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error)
+		CreateUser(input entity.DataUserInput) (bool, error)
 	}
 
 	service struct {
@@ -86,10 +87,10 @@ func (s *service) UpdateProfile(input entity.DataUserInput) (bool, error) {
 	return true, nil
 }
 
-func (s *service) CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error){
+func (s *service) CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error) {
 	feature := model.UserTypeFeature{
 		IDUserType: idUserType,
-		IDFeature: idFeature,
+		IDFeature:  idFeature,
 	}
 
 	feature, err := s.repository.UserFeature(feature)
@@ -100,19 +101,30 @@ func (s *service) CheckFeature(idUserType int, idFeature int) (model.UserTypeFea
 
 	return feature, nil
 }
-//TODO create user
-// func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
-// 	cekUser, err := s.repository.FindUserByEmail(input.Email)
 
-// 	if cekUser.ID != 0 {
-// 		return false, errors.New("Email has been registered")
-// 	}
+func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
+	cekUser, err := s.repository.FindUserByEmail(input.Email)
 
-// 	user := model.User{
-// 		Email:    input.Email,
-// 		Username: input.Username,
-// 		Phone:    input.Phone,
-// 	}
+	if cekUser.ID != 0 {
+		return false, errors.New("Email has been registered")
+	}
 
-// 	return true, nil
-// }
+	user := model.User{
+		Email:      input.Email,
+		Username:   input.Username,
+		Phone:      input.Phone,
+		Name:       input.Name,
+		IDUserType: input.UserTypeID,
+		Address:    input.Address,
+	}
+
+	password, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
+
+	if err != nil {
+		return false, err
+	}
+
+	user.Password = string(password)
+
+	return true, nil
+}

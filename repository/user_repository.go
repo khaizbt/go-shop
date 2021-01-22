@@ -69,11 +69,11 @@ func (r *repository) CreateUser(user model.User) (model.User, error) {
 }
 
 func (r *repository) UserFeature(feature model.UserTypeFeature) (model.UserTypeFeature, error) {
-	err := r.db.Where("id_user_type = ?", feature.IDUserType).Where("id_feature = ?", feature.IDFeature).Error
+	err := r.db.Where("id_user_type = ?", feature.IDUserType).Where("id_feature = ?", feature.IDFeature).Find(&feature).Error
 
-	if err != nil{
+	if err != nil {
 		return feature, err
 	}
 
-	return  feature, nil
+	return feature, nil
 }

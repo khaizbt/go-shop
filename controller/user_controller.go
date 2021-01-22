@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"goshop/config"
 	"goshop/entity"
 	"goshop/helper"
@@ -29,37 +28,33 @@ type UserFormatter struct {
 }
 
 func FormatUser(user model.User, token string) UserFormatter { //Token akan didapatkan dari JWT
-	formater := UserFormatter{
+	formatter := UserFormatter{
 		UserID: user.ID,
 		Email:  user.Email,
 		Phone:  user.Phone,
 		Token:  token,
 	}
 
-	return formater
+	return formatter
 }
 
 func (h *userController) Login(c *gin.Context) {
 	var input entity.LoginEmailInput
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		//errorMessage := gin.H{"errors": helper.FormatValidationError(err)}
-
-		responsError := helper.APIResponse("Login Failed #LOG001", http.StatusUnprocessableEntity, "fail", err.Error())
-		c.JSON(http.StatusUnprocessableEntity, responsError)
+		responseError := helper.APIResponse("Login Failed #LOG001", http.StatusUnprocessableEntity, "fail", err.Error())
+		c.JSON(http.StatusUnprocessableEntity, responseError)
 		return
 	}
 
 	loggedInUser, err := h.userService.Login(input)
-	fmt.Println("Hhhhh1")
 	if err != nil {
 		errorMessage := gin.H{"errors": err.Error()}
 
-		responsError := helper.APIResponse("Login Failed #LOG002", http.StatusUnprocessableEntity, "fail", errorMessage)
-		c.JSON(http.StatusUnprocessableEntity, responsError)
+		responseError := helper.APIResponse("Login Failed #LOG002", http.StatusUnprocessableEntity, "fail", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, responseError)
 		return
 	}
-	fmt.Println("Hhhhh2")
 	token, err := h.authService.GenerateTokenUser(loggedInUser.ID, loggedInUser.IDUserType)
 	if err != nil {
 		responsError := helper.APIResponse("Login Failed", http.StatusBadGateway, "fail", "Unable to generate token")
@@ -67,8 +62,6 @@ func (h *userController) Login(c *gin.Context) {
 		return
 	}
 
-
-	fmt.Println("Hhhhh3")
 	response := helper.APIResponse("Login Success", http.StatusOK, "success", FormatUser(loggedInUser, token))
 
 	c.JSON(http.StatusOK, response)
@@ -79,12 +72,11 @@ func (h *userController) UpdateProfile(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		// fmt.Println(err.Error())
-		// return
+
 		errorMessage := gin.H{"errors": helper.FormatValidationError(err)}
 
-		responsError := helper.APIResponse("Create Account Failed", http.StatusUnprocessableEntity, "fail", errorMessage)
-		c.JSON(http.StatusUnprocessableEntity, responsError)
+		responseError := helper.APIResponse("Create Account Failed", http.StatusUnprocessableEntity, "fail", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, responseError)
 		return
 	}
 
@@ -97,5 +89,29 @@ func (h *userController) UpdateProfile(c *gin.Context) {
 	}
 
 	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", updateUser)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *userController) CreateUser(c *gin.Context) {
+	var input entity.DataUserInput
+
+	err := c.ShouldBindJSON(&input)
+
+	if err != nil {
+		errorMessage := gin.H{"errors": helper.FormatValidationError(err)}
+		responseError := helper.APIResponse("Create Account Failed", http.StatusUnprocessableEntity, "fail", errorMessage)
+		c.JSON(http.StatusUnprocessableEntity, responseError)
+		return
+	}
+
+	createUser, err := h.userService.CreateUser(input)
+
+	if err != nil {
+		responsError := helper.APIResponse("Create Account Failed", http.StatusBadRequest, "fail", nil)
+		c.JSON(http.StatusBadRequest, responsError)
+		return
+	}
+
+	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", createUser)
 	c.JSON(http.StatusOK, response)
 }
