@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controller/user_controller_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entity/user_input.go" beforeDir="false" afterPath="$PROJECT_DIR$/entity/user_input.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user_model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user_model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user_service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +64,21 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="[ADDED] User Feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADDED] User Feature" />
+    <MESSAGE value="[ADDED] Unit Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADDED] Unit Test" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/config/database.go</url>
+          <line>24</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

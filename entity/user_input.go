@@ -12,7 +12,7 @@ type (
 		Email      string `json:"email" binding:"required"`
 		Username   string `json:"username" binding:"required"`
 		Address    string `json:"address"`
-		Phone      int    `json:"phone"`
+		Phone      string `json:"phone"`
 		Password   string `json:"password" binding:"required"`
 		Avatar     string `json:"avatar"`
 		UserTypeID int    `json:"user_type_id" binding:"required"`

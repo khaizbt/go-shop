@@ -21,10 +21,10 @@ func NewUserController(userService service.UserService, authService config.AuthS
 }
 
 type UserFormatter struct {
-	UserID int    `json:"id"`
-	Email  string `json:"email"`
-	Phone  int    `json:"phone"`
-	Token  string `json:"token"`
+	UserID int     `json:"id"`
+	Email  string  `json:"email"`
+	Phone  *string `json:"phone"`
+	Token  string  `json:"token"`
 }
 
 func FormatUser(user model.User, token string) UserFormatter { //Token akan didapatkan dari JWT
