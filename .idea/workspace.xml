@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="">
+    <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="[ADDED] Unit Test Create User">
+      <change afterPath="$PROJECT_DIR$/Storage/avatar/tamamiz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/category_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity/category_input.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/category_model.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/category_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/category_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entity/user_input.go" beforeDir="false" afterPath="$PROJECT_DIR$/entity/user_input.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/user_model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user_model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/user_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/user_api.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user_service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,8 +62,8 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Belajar/golang-clean-architecture" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
@@ -65,7 +73,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="[ADDED] User Feature" />
     <MESSAGE value="[ADDED] Unit Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADDED] Unit Test" />
+    <MESSAGE value="[ADDED] Unit Test Create User" />
+    <MESSAGE value="[Deleted] Test Http" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Deleted] Test Http" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

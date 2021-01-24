@@ -1,20 +1,24 @@
 package controller
 
 import (
+	"fmt"
 	"goshop/config"
 	"goshop/entity"
 	"goshop/helper"
 	"goshop/model"
 	"goshop/service"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-type userController struct {
-	userService service.UserService
-	authService config.AuthService
-}
+type (
+	userController struct {
+		userService service.UserService
+		authService config.AuthService
+	}
+)
 
 func NewUserController(userService service.UserService, authService config.AuthService) *userController {
 	return &userController{userService, authService}
@@ -104,6 +108,18 @@ func (h *userController) CreateUser(c *gin.Context) {
 		return
 	}
 
+	path := fmt.Sprintf("Storage/avatar/%s", input.Username+".png")
+
+	_, err = helper.UploadImage(path, input.Avatar)
+
+	if err != nil {
+		responsError := helper.APIResponse("Create Product Failed #EMP019", http.StatusUnsupportedMediaType, "fail", err.Error())
+		c.JSON(http.StatusUnsupportedMediaType, responsError)
+		return
+	}
+
+	input.Avatar = path
+
 	createUser, err := h.userService.CreateUser(input)
 
 	if err != nil {
@@ -113,5 +129,31 @@ func (h *userController) CreateUser(c *gin.Context) {
 	}
 
 	response := helper.APIResponse("Account has been registered", http.StatusOK, "success", createUser)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *userController) ListUser(c *gin.Context) {
+	var input entity.DataUserInput
+
+	name := c.Query("name")
+	email := c.Query("email")
+	phone := c.Query("phone")
+	username := c.Query("username")
+	userType, _ := strconv.Atoi(c.Query("user_type"))
+
+	input.Name = name
+	input.Email = email
+	input.Phone = phone
+	input.Username = username
+	input.UserTypeID = userType
+
+	listUser, err := h.userService.ListUser(input)
+	if err != nil {
+		responseError := helper.APIResponse("Get List User Failed #JAH002", http.StatusBadGateway, "fail", err.Error())
+		c.JSON(http.StatusBadGateway, responseError)
+		return
+	}
+
+	response := helper.APIResponse("Get List User Success", http.StatusOK, "success", listUser)
 	c.JSON(http.StatusOK, response)
 }

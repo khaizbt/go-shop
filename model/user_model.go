@@ -9,15 +9,16 @@ type (
 		ID         int       `json:"id"`
 		Name       string    `json:"name"`
 		Email      string    `json:"email"`
-		Password   string    `json:"password"`
+		Password   string    `json:"-"`
 		Username   string    `json:"username"`
 		IDUserType int       `json:"user_type_id"`
 		Address    string    `json:"address"`
-		Phone      *string   `json:"phone,omitempty"`
+		Phone      *string   `json:"phone"`
 		Avatar     string    `json:"avatar"`
-		Status     string    `json:"status"`
+		Status     string    `json:"-"`
 		CreatedAt  time.Time `json:"created_at"`
 		UpdatedAt  time.Time `json:"updated_at"`
+		UserType   UserType  `json:"user_type" gorm:"foreignKey:IDUserType"`
 	}
 
 	UserType struct {

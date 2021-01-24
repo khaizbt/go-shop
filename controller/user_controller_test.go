@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/assert/v2"
+	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 	"goshop/config"
 	"goshop/entity"

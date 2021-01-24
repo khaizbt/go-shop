@@ -16,6 +16,7 @@ type (
 		UpdateProfile(input entity.DataUserInput) (bool, error)
 		CheckFeature(idUserType int, idFeature int) (model.UserTypeFeature, error)
 		CreateUser(input entity.DataUserInput) (bool, error)
+		ListUser(input entity.DataUserInput) ([]model.User, error)
 	}
 
 	service struct {
@@ -116,6 +117,7 @@ func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
 		IDUserType: input.UserTypeID,
 		Address:    input.Address,
 		Phone:      &input.Phone,
+		Avatar:     input.Avatar,
 	}
 
 	password, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
@@ -133,4 +135,14 @@ func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (s *service) ListUser(input entity.DataUserInput) ([]model.User, error) {
+	user, err := s.repository.ListUser(input)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }

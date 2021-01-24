@@ -16,4 +16,5 @@ func RouteUser(route *gin.Engine, service service.UserService) {
 	api.POST("login", userController.Login)
 	api.POST("update-account", middleware.AuthMiddlewareUser(authService, service, 0), userController.UpdateProfile)
 	api.POST("create", middleware.AuthMiddlewareUser(authService, service, 1), userController.CreateUser)
+	api.GET("list", middleware.AuthMiddlewareUser(authService, service, 0), userController.ListUser)
 }

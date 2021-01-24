@@ -2,6 +2,7 @@ package repository
 
 import (
 	"goshop/config"
+	"goshop/entity"
 	"goshop/model"
 
 	"gorm.io/gorm"
@@ -14,6 +15,7 @@ type (
 		UpdateProfile(user model.User) (model.User, error)
 		CreateUser(user model.User) (model.User, error)
 		UserFeature(feature model.UserTypeFeature) (model.UserTypeFeature, error)
+		ListUser(input entity.DataUserInput) ([]model.User, error)
 	}
 
 	repository struct {
@@ -76,4 +78,37 @@ func (r *repository) UserFeature(feature model.UserTypeFeature) (model.UserTypeF
 	}
 
 	return feature, nil
+}
+
+func (r *repository) ListUser(input entity.DataUserInput) ([]model.User, error) {
+	var users []model.User
+	user := r.db.Preload("UserType")
+
+	if input.Name != "" {
+		user.Where("name LIKE ?", "%"+input.Name+"%")
+	}
+
+	if input.Username != "" {
+		user.Where("username LIKE ?", "%"+input.Username+"%")
+	}
+
+	if input.Phone != "" {
+		user.Where("phone = ?", input.Phone)
+	}
+
+	if input.Email != "" {
+		user.Where("email LIKE ?", "%"+input.Email+"%")
+	}
+
+	if input.UserTypeID != 0 {
+		user.Where("id_user_type = ?", input.UserTypeID)
+	}
+
+	err := user.Find(&users).Error
+
+	if err != nil {
+		return users, err
+	}
+
+	return users, nil
 }
