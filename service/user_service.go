@@ -112,10 +112,10 @@ func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
 	user := model.User{
 		Email:      input.Email,
 		Username:   input.Username,
-		Phone:      input.Phone,
 		Name:       input.Name,
 		IDUserType: input.UserTypeID,
 		Address:    input.Address,
+		Phone:      &input.Phone,
 	}
 
 	password, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
@@ -125,6 +125,12 @@ func (s *service) CreateUser(input entity.DataUserInput) (bool, error) {
 	}
 
 	user.Password = string(password)
+
+	_, err = s.repository.CreateUser(user)
+
+	if err != nil {
+		return false, err
+	}
 
 	return true, nil
 }
