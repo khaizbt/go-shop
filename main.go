@@ -42,6 +42,7 @@ func main() {
 	router.Use(secureMiddleware)
 	router.Use(sentrygin.New(sentrygin.Options{}))
 	route.RouteUser(router, userService)
+	route.CategoryRoute(router, userService)
 	router.Run(":8000")
 
 }

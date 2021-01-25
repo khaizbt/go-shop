@@ -50,7 +50,7 @@ func TestUserController_CreateUser(t *testing.T) {
 
 	//Create Password
 	password, _ := bcrypt.GenerateFromPassword([]byte("654321"), bcrypt.MinCost)
-	//
+
 	////Check Password
 	err := bcrypt.CompareHashAndPassword([]byte(password), []byte("654321"))
 

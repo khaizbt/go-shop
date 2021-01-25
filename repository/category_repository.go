@@ -8,6 +8,8 @@ import (
 type (
 	CategoryRepository interface {
 		CreateCategory(category model.Category) (model.Category, error)
+		FindCategoryByID(categoryID int) (model.Category, error)
+		UpdateCategory(category model.Category) (bool, error)
 	}
 )
 
@@ -24,3 +26,30 @@ func (r *repository) CreateCategory(category model.Category) (model.Category, er
 
 	return category, nil
 }
+
+func (r *repository) FindCategoryByID(categoryID int) (model.Category, error) {
+	var category model.Category
+	err := r.db.Where("id = ?", categoryID).First(&category).Error
+
+	if err != nil {
+		return category, err
+	}
+
+	return category, nil
+}
+
+func (r *repository) UpdateCategory(category model.Category) (bool, error) {
+	err := r.db.Save(&category).Error
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+//TODO List Category
+//
+//func (r *repository) ListCategory() ([]model.Category, error) {
+//	var category mo
+//}
