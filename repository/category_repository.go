@@ -10,6 +10,8 @@ type (
 		CreateCategory(category model.Category) (model.Category, error)
 		FindCategoryByID(categoryID int) (model.Category, error)
 		UpdateCategory(category model.Category) (bool, error)
+		ListCategory() ([]model.Category, error)
+		DeleteCategory(categoryID int) (bool, error)
 	}
 )
 
@@ -50,6 +52,25 @@ func (r *repository) UpdateCategory(category model.Category) (bool, error) {
 
 //TODO List Category
 //
-//func (r *repository) ListCategory() ([]model.Category, error) {
-//	var category mo
-//}
+func (r *repository) ListCategory() ([]model.Category, error) {
+	var category []model.Category
+
+	err := r.db.Find(&category).Error
+
+	if err != nil {
+		return category, err
+	}
+
+	return category, nil
+}
+
+func (r *repository) DeleteCategory(categoryID int) (bool, error) {
+	var category model.Category
+	err := r.db.Where("id = ?", categoryID).Delete(&category).Error
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}

@@ -4,7 +4,6 @@ type (
 	CategoryUserinput struct {
 		ID        int
 		Name      string `json:"name"`
-		Slug      string `json:"slug"`
 		Image     string `json:"image"`
 		CreatedBy int    `json:"-"`
 		UpdatedBy int    `json:"-"`

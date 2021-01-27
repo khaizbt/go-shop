@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Storage/avatar/category_satu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route/category_api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Storage/avatar/category-dua-stu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/goshop" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/goshop.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/category_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/category_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entity/category_input.go" beforeDir="false" afterPath="$PROJECT_DIR$/entity/category_input.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/category_model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/category_model.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repository/category_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/category_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/user_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/user_api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/category_api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/category_api.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/category_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/category_service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +76,8 @@
     <MESSAGE value="[ADDED] Unit Test Create User" />
     <MESSAGE value="[Deleted] Test Http" />
     <MESSAGE value="[WIP] Category" />
-    <option name="LAST_COMMIT_MESSAGE" value="[WIP] Category" />
+    <MESSAGE value="[WIP] List Category" />
+    <option name="LAST_COMMIT_MESSAGE" value="[WIP] List Category" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

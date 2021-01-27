@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gosimple/slug"
 	"goshop/entity"
 	"goshop/helper"
 	"goshop/model"
@@ -30,7 +31,7 @@ func (h *categoryController) CreateCategory(c *gin.Context) {
 		return
 	}
 
-	path := fmt.Sprintf("Storage/avatar/%s", input.Slug+".png")
+	path := fmt.Sprintf("Storage/avatar/%s", slug.Make(input.Name)+".png")
 
 	_, err = helper.UploadImage(path, input.Image)
 
@@ -78,7 +79,7 @@ func (h *categoryController) UpdateCategory(c *gin.Context) {
 		return
 	}
 	if input.Image != "" {
-		path := fmt.Sprintf("Storage/avatar/%s", input.Slug+".png")
+		path := fmt.Sprintf("Storage/avatar/%s", slug.Make(input.Name)+".png")
 
 		_, err = helper.UploadImage(path, input.Image)
 
@@ -101,5 +102,40 @@ func (h *categoryController) UpdateCategory(c *gin.Context) {
 	}
 
 	response := helper.APIResponse("Category has been updated", http.StatusOK, "success", updateCategory)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *categoryController) ListCategory(c *gin.Context) {
+	listCategory, err := h.service.ListCategory()
+
+	if err != nil {
+		responseError := helper.APIResponse("Failed get List Category #RTQ911", http.StatusBadGateway, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+
+	response := helper.APIResponse("Get List Category Success", http.StatusOK, "success", listCategory)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *categoryController) DeleteCategory(c *gin.Context) {
+	var inputID entity.IdUserInput
+
+	err := c.ShouldBindUri(&inputID)
+
+	if err != nil {
+		responseError := helper.APIResponse("Delete Category Failed #PET831", http.StatusBadRequest, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+
+	deleteCategory, err := h.service.DeleteCategory(inputID)
+
+	if err != nil {
+		responseError := helper.APIResponse("Delete Category Failed #PET131", http.StatusBadGateway, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+	response := helper.APIResponse("Delete Category Success", http.StatusOK, "success", deleteCategory)
 	c.JSON(http.StatusOK, response)
 }

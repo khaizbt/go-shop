@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/gosimple/slug"
 	"goshop/entity"
 	"goshop/model"
 	"goshop/repository"
@@ -10,6 +11,8 @@ type (
 	CategoryService interface {
 		CreateCategory(input entity.CategoryUserinput) (bool, error)
 		UpdateCategory(input entity.CategoryUserinput) (bool, error)
+		ListCategory() ([]model.Category, error)
+		DeleteCategory(input entity.IdUserInput) (bool, error)
 	}
 
 	category_service struct {
@@ -24,7 +27,7 @@ func NewCategoryService(repository repository.CategoryRepository) *category_serv
 func (s *category_service) CreateCategory(input entity.CategoryUserinput) (bool, error) {
 	category := model.Category{
 		Name:      input.Name,
-		Slug:      &input.Slug,
+		Slug:      slug.Make(input.Name),
 		Image:     &input.Image,
 		CreatedBy: input.CreatedBy,
 	}
@@ -46,7 +49,7 @@ func (s *category_service) UpdateCategory(input entity.CategoryUserinput) (bool,
 	}
 
 	category.Name = input.Name
-	category.Slug = &input.Slug
+	category.Slug = slug.Make(input.Name)
 	category.Image = &input.Image
 	category.UpdatedBy = &input.UpdatedBy
 
@@ -57,5 +60,24 @@ func (s *category_service) UpdateCategory(input entity.CategoryUserinput) (bool,
 	}
 
 	return true, nil
+}
 
+func (s *category_service) ListCategory() ([]model.Category, error) {
+	listCategory, err := s.repository.ListCategory()
+
+	if err != nil {
+		return listCategory, err
+	}
+
+	return listCategory, nil
+}
+
+func (s *category_service) DeleteCategory(input entity.IdUserInput) (bool, error) {
+	_, err := s.repository.DeleteCategory(input.ID)
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, err
 }
