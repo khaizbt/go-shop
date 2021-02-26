@@ -91,6 +91,7 @@ func (h *categoryController) UpdateCategory(c *gin.Context) {
 		input.Image = path
 	}
 	input.ID = inputID.ID
+
 	input.UpdatedBy = c.MustGet("currentUser").(model.User).ID
 
 	updateCategory, err := h.service.UpdateCategory(input)
@@ -129,7 +130,9 @@ func (h *categoryController) DeleteCategory(c *gin.Context) {
 		return
 	}
 
-	deleteCategory, err := h.service.DeleteCategory(inputID)
+	delete_by := c.MustGet("currentUser").(model.User).ID
+
+	deleteCategory, err := h.service.DeleteCategory(inputID, delete_by)
 
 	if err != nil {
 		responseError := helper.APIResponse("Delete Category Failed #PET131", http.StatusBadGateway, "fail", nil)
@@ -138,4 +141,59 @@ func (h *categoryController) DeleteCategory(c *gin.Context) {
 	}
 	response := helper.APIResponse("Delete Category Success", http.StatusOK, "success", deleteCategory)
 	c.JSON(http.StatusOK, response)
+}
+
+func (h *categoryController) ListTrash(c *gin.Context) {
+	listTrash, err := h.service.ListTrash()
+
+	if err != nil {
+		responseError := helper.APIResponse("Failed get List Trash Category #RTQ922", http.StatusBadGateway, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+
+	response := helper.APIResponse("Get List Trash Category Success", http.StatusOK, "success", listTrash)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *categoryController) RestoreCategory(c *gin.Context) {
+	var input entity.IdUserInput
+	err := c.ShouldBindUri(&input)
+
+	if err != nil {
+		responseError := helper.APIResponse("Restore Category Failed #PET831", http.StatusBadRequest, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+	_, err = h.service.RestoreData(input)
+
+	if err != nil {
+		responseError := helper.APIResponse("Failed Restore Data #RTQ932", http.StatusBadGateway, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+	response := helper.APIResponse("Restore Data Category Success", http.StatusOK, "success", true)
+	c.JSON(http.StatusOK, response)
+
+}
+
+func (h *categoryController) DeletePermanent(c *gin.Context) {
+	var input entity.IdUserInput
+	err := c.ShouldBindUri(&input)
+
+	if err != nil {
+		responseError := helper.APIResponse("Delete Category Failed #PET831", http.StatusBadRequest, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+	_, err = h.service.DeletePermanent(input)
+
+	if err != nil {
+		responseError := helper.APIResponse("Failed Restore Data #RTQ932", http.StatusBadGateway, "fail", nil)
+		c.JSON(http.StatusBadRequest, responseError)
+		return
+	}
+	response := helper.APIResponse("Get List Trash Category Success", http.StatusOK, "success", true)
+	c.JSON(http.StatusOK, response)
+
 }

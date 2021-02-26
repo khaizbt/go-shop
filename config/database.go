@@ -22,9 +22,5 @@ func init() {
 		panic("failed to connect database")
 	}
 
-	if err != nil {
-		panic("migration failed")
-	}
-
 	db = database
 }

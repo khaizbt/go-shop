@@ -17,4 +17,7 @@ func CategoryRoute(route *gin.Engine, services service.UserService) {
 	api.PUT("update/:id", middleware.AuthMiddlewareUser(authService, services, 6), categoryHandler.UpdateCategory)
 	api.GET("list", middleware.AuthMiddlewareUser(authService, services, 7), categoryHandler.ListCategory)
 	api.DELETE("delete/:id", middleware.AuthMiddlewareUser(authService, services, 8), categoryHandler.DeleteCategory)
+	api.GET("trash", middleware.AuthMiddlewareUser(authService, services, 7), categoryHandler.ListTrash)
+	api.GET("restore/:id", middleware.AuthMiddlewareUser(authService, services, 7), categoryHandler.RestoreCategory)
+	api.DELETE("delete-permanent/:id", middleware.AuthMiddlewareUser(authService, services, 6), categoryHandler.DeletePermanent)
 }

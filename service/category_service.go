@@ -12,7 +12,10 @@ type (
 		CreateCategory(input entity.CategoryUserinput) (bool, error)
 		UpdateCategory(input entity.CategoryUserinput) (bool, error)
 		ListCategory() ([]model.Category, error)
-		DeleteCategory(input entity.IdUserInput) (bool, error)
+		DeleteCategory(input entity.IdUserInput, delete_by int) (bool, error)
+		DeletePermanent(input entity.IdUserInput) (bool, error)
+		ListTrash() ([]model.Category, error)
+		RestoreData(input entity.IdUserInput) (bool, error)
 	}
 
 	category_service struct {
@@ -72,12 +75,42 @@ func (s *category_service) ListCategory() ([]model.Category, error) {
 	return listCategory, nil
 }
 
-func (s *category_service) DeleteCategory(input entity.IdUserInput) (bool, error) {
-	_, err := s.repository.DeleteCategory(input.ID)
+func (s *category_service) DeleteCategory(input entity.IdUserInput, delete_by int) (bool, error) {
+	_, err := s.repository.DeleteCategory(input.ID, delete_by)
 
 	if err != nil {
 		return false, err
 	}
 
 	return true, err
+}
+
+func (s *category_service) DeletePermanent(input entity.IdUserInput) (bool, error) {
+	_, err := s.repository.DeletePermanent(input.ID)
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, err
+}
+
+func (s *category_service) ListTrash() ([]model.Category, error) {
+	data, err := s.repository.ListTrash()
+
+	if err != nil {
+		return data, err
+	}
+
+	return data, nil
+}
+
+func (s *category_service) RestoreData(input entity.IdUserInput) (bool, error) {
+	_, err := s.repository.RestoreData(input.ID)
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
