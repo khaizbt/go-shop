@@ -57,8 +57,6 @@ func (r *repository) UpdateCategory(category model.Category) (bool, error) {
 	return true, nil
 }
 
-//TODO List Category
-//
 func (r *repository) ListCategory() ([]model.Category, error) {
 	var category []model.Category
 
@@ -99,7 +97,7 @@ func (r *repository) ListTrash() ([]model.Category, error) {
 
 func (r *repository) DeletePermanent(categoryID int) (bool, error) {
 	tx := r.db.Begin()
-	err := tx.Unscoped().Where("id", 2).Delete(&model.Category{}).Error
+	err := tx.Unscoped().Where("id", categoryID).Delete(&model.Category{}).Error
 
 	if err != nil {
 		tx.Rollback()

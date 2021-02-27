@@ -43,6 +43,6 @@ func main() {
 	router.Use(sentrygin.New(sentrygin.Options{}))
 	route.RouteUser(router, userService)
 	route.CategoryRoute(router, userService)
-	router.Run(":8000")
-
+	route.ProductRoute(router, userService)
+	_ = router.Run(":8000")
 }

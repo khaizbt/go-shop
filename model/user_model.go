@@ -37,8 +37,12 @@ type (
 	}
 
 	UserTypeFeature struct {
-		ID         int `json:"id"`
-		IDUserType int `json:"user_type_id"`
-		IDFeature  int `json:"feature_id"`
+		ID         int       `json:"id"`
+		IDUserType int       `json:"user_type_id"`
+		IDFeature  int       `json:"feature_id"`
+		CreatedAt  time.Time `json:"created_at"`
+		UpdatedAt  time.Time `json:"updated_at"`
+		Feature    Feature   `gorm:"foreignKey:IDFeature"`
+		UserType   UserType  `gorm:"foreignKey:IDUserType"`
 	}
 )

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/seed.go" afterDir="false" />
+    <list default="true" id="e734f7b2-6637-4b77-8aac-a569462248c7" name="Default Changelist" comment="[WIP] Module Product(List Product)">
+      <change afterPath="$PROJECT_DIR$/Storage/product/produk-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/product_controller.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/entity/product_input.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/model/product_model.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/repository/product_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/route/product_api.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/service/product_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/user_model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user_model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/category_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/category_repository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +76,8 @@
     <MESSAGE value="[WIP] List Category" />
     <MESSAGE value="[Added] Module Category" />
     <MESSAGE value="[Added] Module Category(Manage Soft Delete)" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Added] Module Category(Manage Soft Delete)" />
+    <MESSAGE value="[WIP] Module Product(List Product)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[WIP] Module Product(List Product)" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
