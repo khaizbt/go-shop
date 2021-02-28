@@ -1,5 +1,7 @@
 package entity
 
+import "goshop/model"
+
 type (
 	CategoryUserinput struct {
 		ID        int
@@ -11,6 +13,7 @@ type (
 	}
 
 	IdUserInput struct {
-		ID int `uri:"id" binding:"required"` //Ambil id dari URL
+		ID   int `uri:"id" binding:"required"` //Ambil id dari URL
+		User model.User
 	}
 )

@@ -17,9 +17,9 @@ type (
 		UserID           int            `json:"user_id"`
 		CreatedAt        time.Time      `json:"created_at"`
 		UpdatedAt        time.Time      `json:"updated_at"`
-		Category         Category       `gorm:"foreignKey:CategoryId" json:"category,omitempty"`
-		User             User           `gorm:"foreignKey:UserID" json:"user,omitempty"`
-		ProductImage     []ProductImage `json:"product_image,omitempty"`
+		Category         *Category      `gorm:"foreignKey:CategoryId" json:"category,omitempty"`
+		User             *User          `gorm:"foreignKey:UserID" json:"user,omitempty"`
+		ProductImage     []ProductImage `json:"product_image"`
 	}
 
 	ProductImage struct {
@@ -29,6 +29,6 @@ type (
 		IsPrimary bool      `json:"is_primary"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
-		Product   Product   `gorm:"foreignKey:ProductID" json:"product"`
+		Product   *Product  `gorm:"foreignKey:ProductID" json:"product"`
 	}
 )
